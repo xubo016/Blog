@@ -34,7 +34,7 @@ class Article extends Common
    * 文章列表
    */
   public function lst(){
-    $art = db('article')->field('a.*,b.catename')->alias('a')->join('qy_cate b','a.cateid=b.id')->paginate(10);
+    $art = db('article')->field('a.*,b.catename')->alias('a')->join('bk_cate b','a.cateid=b.id')->paginate(10);
     $this->assign("article",$art);
     return view();
   }

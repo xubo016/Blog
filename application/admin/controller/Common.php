@@ -22,7 +22,7 @@ class Common extends Controller
     $action = $request->action();
     $name = $con . '/' . $action;
     $notCheck = array('Index/index','Admin/logout');
-    $Superadmin = Db::query("select a.id from qy_admin a inner join qy_auth_group_access b on a.id = b.uid inner join qy_auth_group c on b.group_id = c.id where title = '超级管理员'");
+    $Superadmin = Db::query("select a.id from bk_admin a inner join bk_auth_group_access b on a.id = b.uid inner join bk_auth_group c on b.group_id = c.id where title = '超级管理员'");
     foreach($Superadmin as $k => $v){
       $SuperAdminId[] = $v['id'];
     }
