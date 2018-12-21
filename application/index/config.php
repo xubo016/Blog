@@ -18,6 +18,13 @@ return [
       '__INDEX__'   =>  '/static/index',
     ],
 
+    //分页配置
+    'paginate'               => [
+      'type'      => 'Paging',
+      'var_page'  => 'page',
+      'list_rows' => 12,
+    ],
+
 ];
 
 
