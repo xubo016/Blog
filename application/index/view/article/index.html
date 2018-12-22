@@ -19,8 +19,18 @@
         {include file="public/head" /}
         <div id="divMain">
           <div class="post single-post cate2 auth1">
-            <div class="post-nav"><a class="l" href="http://www.youmew.com/post/74.html" title="初冬，景如故">« 上一篇</a><a
-                class="r" href="http://www.youmew.com/post/76.html" title="人生何尝不是一场赌局">下一篇 »</a></div>
+            <div class="post-nav">
+              {if condition="$prev neq ''"}
+              <a class="l" href="{:url('article/index',['artid'=>$prev])}" >« 上一篇</a>
+              {else /}
+              <a class="l" href="javascript:void(0);" >« 最后一篇了</a>
+              {/if}
+              {if condition="$next neq ''"}
+              <a class="r" href="{:url('article/index',['artid'=>$next])}" >下一篇 »</a>
+              {else /}
+              <a class="r" href="javascript:void(0);" >最后一篇了 »</a>
+              {/if}
+            </div>
             <h4 class="post-date">{$article.create_time}</h4>
             <h2 class="post-title">{$article.title}</h2>
             <div class="post-body">
@@ -47,18 +57,13 @@
           <ul class="msg mutuality">
             <li class="tbname">相关文章:</li>
             <li class="msgarticle">
-              <p><a href="http://www.youmew.com/post/77.html">明心见性的一段对话</a>&nbsp;&nbsp;(2016-3-17 10:45:44)</p>
-              <p><a href="http://www.youmew.com/post/76.html">人生何尝不是一场赌局</a>&nbsp;&nbsp;(2016-3-11 13:23:45)</p>
-              <p><a href="http://www.youmew.com/post/74.html">初冬，景如故</a>&nbsp;&nbsp;(2015-11-21 17:2:53)</p>
-              <p><a href="http://www.youmew.com/post/73.html">从丁元英到叶子农</a>&nbsp;&nbsp;(2015-8-31 19:12:19)</p>
-              <p><a href="http://www.youmew.com/post/72.html">五十度灰的天空</a>&nbsp;&nbsp;(2015-4-30 4:47:49)</p>
-              <p><a href="http://www.youmew.com/post/71.html">见路不走，清明</a>&nbsp;&nbsp;(2015-4-1 11:59:32)</p>
-              <p><a href="http://www.youmew.com/post/70.html">神雕侠侣不过只是男欢女爱罢了</a>&nbsp;&nbsp;(2015-2-20 9:2:14)</p>
-              <p><a href="http://www.youmew.com/post/69.html">山花烂漫的季节，我们各自冷暖自知</a>&nbsp;&nbsp;(2015-2-4 11:59:13)</p>
-              <p><a href="http://www.youmew.com/post/68.html">一场梦而已。</a>&nbsp;&nbsp;(2015-1-20 5:11:26)</p>
-              <p><a href="http://www.youmew.com/post/67.html">To be or not to be？</a>&nbsp;&nbsp;(2014-12-23 15:56:28)</p>
+              {foreach $array as $vo}
+              <p><a href="{:url('article/index',['artid'=>$vo.0])}">{$vo.1}</a>&nbsp;&nbsp;({$vo.2})</p>
+              {/foreach}
             </li>
           </ul>
+
+
           <ul class="msg msghead">
             <li class="tbname">留言列表:</li>
           </ul>
@@ -159,18 +164,20 @@
         </div>
         <div id="divSidebar">
 
-          <dl class="function" id="divSearchPanel">
-            <dt class="function_t">搜索</dt>
-            <dd class="function_c">
-              <div>
-                <div id="mod_searchpanel" style="display:none;">
-                  <script type="text/javascript">
-                    LoadFunction('searchpanel');
-                  </script>
-                </div>
-              </div>
-            </dd>
-          </dl>
+            <dl class="function" id="divSearchPanel">
+                <dt class="function_t">搜索</dt>
+                <dd class="function_c">
+                  <div>
+                    <div style="padding:0.5em 0 0.5em 1em;">
+                      <form method="post" action="{:url('search/index')}">
+                        <input type="text" name="key" size="12" />
+                        <input type="submit" value="提交" />
+                      </form>
+                    </div>
+                  </div>
+                </dd>
+              </dl>
+
           <dl class="function" id="divComments">
             <dt class="function_t">最新留言</dt>
             <dd class="function_c">

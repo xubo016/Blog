@@ -6,87 +6,57 @@
   <meta http-equiv="Content-Language" content="zh-CN" />
   <meta name="keywords" content="你我网,圈圈说,汉中,汉中圈圈,你我,如是观,心理,感情,youmew" />
   <meta name="description" content="你我网，缘自圈圈说，记载着圈圈的生活过往，只为留住那份曾经的感动；圈圈，又名小尤，前半生执著于感情，命途多舛，故孑然一身。" />
-  <title>你我网 - www.Youmew.com</title>
+  <title>大生活 - 你我网 </title>
   <!-- 头部引入文件 -->
   {include file="public/title" /}
 </head>
-
-<body class="multi default">
+<body class="multi catalog">
   <div id="divAll">
     <div id="divPage">
       <div id="divMiddle">
         <!-- 头部导航 -->
         {include file="public/head" /}
         <div id="divMain">
-
-          {foreach $article as $vo}
+          <div class="post single-post cate0 auth0">
+            <h4 class="post-date"></h4>
+            <h2 class="post-title">Search:{$key}</h2>
+            <div class="post-body"></div>
+            <h6 class="post-footer"></h6>
+          </div>
+          <?php if(!empty($article)):
+            foreach($article as $vo):
+          ?>
           <div class="post multi-post cate2 auth1">
             <h4 class="post-date">{$vo.create_time}</h4>
             <h2 class="post-title"><a href="{:url('article/index',['artid'=>$vo.id])}">{$vo.title}​</a></h2>
             <div class="post-body">
-              <p>{$vo.desc}</p>
-              {if condition="$vo['pic'] neq ''"}
-              <p style="text-indent: 0em;">
-                <a title="{$vo.title}" target="_self" href="{:url('article/index',['artid'=>$vo.id])}"><img src="{$vo.pic}"
-                    title="你我网" alt="你我网" />
-                </a>
-              </p>
-              {/if}
+                <p>{$vo.desc}</p>
+                {if condition="$vo['pic'] neq ''"}
+                <p style="text-indent: 0em;"><a title="{$vo.title}" target="_self" href="{:url('article/index',['artid'=>$vo.id])}"><img src="{$vo.pic}" /></a></p>
+                {/if}
             </div>
             <h5 class="post-tags">Tags: <span class="tags">
-                <?php $arr = explode(',',$vo['keyword']); foreach($arr as $k => $v):?>
-                <a href="{:url('tags/index',['tageid'=>$v])}">{$v}</a>&nbsp;&nbsp;
+                <?php $tags = explode(',',$vo['keyword']); foreach($tags as $k => $v):?>
+                  <a href="{:url('tags/index',array('tageid'=>trim($v)))}">{$v}</a>&nbsp;&nbsp;
                 <?php endforeach;?>
-              </span></h5>
+                </span>
+            </h5>
             <h6 class="post-footer">
-              发布:{$vo.author} | 分类:{$vo.catename} | 评论:6 | 浏览:<span>{$vo.click}</span>
-              | <a href="{:url('article/index',['artid'=>$vo.id])}">阅读全文 > </a>
+                发布:{$vo.author} | 分类:{$vo.catename} | 评论:6 | 浏览:<span>{$vo.click}</span>
+                | <a href="{:url('article/index',['artid'=>$vo.id])}">阅读全文 > </a>
             </h6>
           </div>
-          {/foreach}
-
+          
+          <?php endforeach;?>
           <div class="post pagebar">
-            {$article->render()}
+              {$article->render()}
           </div>
+          <?php endif;?>
+
+          
 
         </div>
-
         <div id="divSidebar">
-          <dl class="function" id="divSearchPanel">
-            <dt class="function_t">搜索</dt>
-            <dd class="function_c">
-              <div>
-                <div style="padding:0.5em 0 0.5em 1em;">
-                  <form method="post" action="{:url('search/index')}">
-                    <input type="text" name="key" size="12" />
-                    <input type="submit" value="提交" />
-                  </form>
-                </div>
-              </div>
-            </dd>
-          </dl>
-
-          <dl class="function" id="divTags">
-            <dt class="function_t">按标签浏览</dt>
-            <dd class="function_c">
-              <ul>
-                <li class="tag-name tag-name-size-2"><a href="{:url('tags/index',['tageid'=>'觉悟'])}">觉悟</a></li>
-                <li class="tag-name tag-name-size-3"><a href="{:url('tags/index',['tageid'=>'人生'])}">人生</a></li>
-                <li class="tag-name tag-name-size-2"><a href="{:url('tags/index',['tageid'=>'摄影'])}">摄影</a></li>
-                <li class="tag-name tag-name-size-2"><a href="{:url('tags/index',['tageid'=>'爱情'])}">爱情</a></li>
-                <li class="tag-name tag-name-size-3"><a href="{:url('tags/index',['tageid'=>'心情'])}">心情</a></li>
-                <li class="tag-name tag-name-size-3"><a href="{:url('tags/index',['tageid'=>'生活'])}">生活</a></li>
-                <li class="tag-name tag-name-size-1"><a href="{:url('tags/index',['tageid'=>'音乐'])}">音乐</a></li>
-                <li class="tag-name tag-name-size-0"><a href="{:url('tags/index',['tageid'=>'规则'])}">规则</a></li>
-                <li class="tag-name tag-name-size-0"><a href="{:url('tags/index',['tageid'=>'夕阳'])}">夕阳</a></li>
-                <li class="tag-name tag-name-size-0"><a href="{:url('tags/index',['tageid'=>'寂寞'])}">寂寞</a></li>
-                <li class="tag-name tag-name-size-1"><a href="{:url('tags/index',['tageid'=>'过往'])}">过往</a></li>
-                <li class="tag-name tag-name-size-0"><a href="{:url('tags/index',['tageid'=>'西乡'])}">西乡</a></li>
-                <li class="tag-name tag-name-size-1"><a href="{:url('tags/index',['tageid'=>'回忆'])}">回忆</a></li>
-                <li class="tag-name tag-name-size-0"><a href="{:url('tags/index',['tageid'=>'旅行'])}">旅行</a></li>
-              </ul>
-            </dd>
-          </dl>
 
           <dl class="function" id="divComments">
             <dt class="function_t">最新留言</dt>
@@ -106,19 +76,6 @@
               </ul>
             </dd>
           </dl>
-          <dl class="function" id="divLinkage">
-            <dt class="function_t">友情链接</dt>
-            <dd class="function_c">
-              <ul>
-                <li>
-                  {foreach $link as $vo}
-                  <a href="{$vo.url}" target="_blank">{$vo.title}</a>
-                  {/foreach}
-                </li>
-              </ul>
-            </dd>
-          </dl>
-
           <dl class="function" id="divMisc">
             <dt class="function_t">分享到：</dt>
             <dd class="function_c">
@@ -155,7 +112,6 @@
           </dl>
 
         </div>
-
         <div id="divBottom">
           <h3 id="BlogCopyRight">
             <script src="http://s20.cnzz.com/stat.php?id=681872&web_id=681872&show=pic" language="JavaScript"></script>　陕ICP备11002139号-1
@@ -164,7 +120,6 @@
               target="_blank">Z-Blog</a>　本站遵循<a rel="license" target="_blank" title="署名-非商业性使用-禁止演绎 3.0 中国大陆许可协议" href="http://creativecommons.org/licenses/by-nc-nd/3.0/cn/">
               CC BY-NC-ND 3.0 CN协议 </a>。</h4>
         </div>
-
         <div class="clear"></div>
       </div>
       <div class="clear"></div>
@@ -192,4 +147,5 @@
   <!-- dd END -->
 </body>
 
-</html><!-- 16ms -->
+</html>
+<!--266ms-->

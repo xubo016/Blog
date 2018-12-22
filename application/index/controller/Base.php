@@ -13,6 +13,11 @@ class Base extends Controller
     $navs = db('cate')->select();
     $this->assign('navs',$navs);
   }
+
+  // 空操作
+  public function _empty(){
+    $this->redirect('index/index');
+  }
 }
 
 
